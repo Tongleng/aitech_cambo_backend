@@ -12,27 +12,6 @@ import (
 func main() {
 	app := fiber.New()
 
-	// mainDNS := os.Getenv("MAIN_DNS")
-
-	// // Build allowed origins safely
-	// allowedOrigins := []string{
-	// 	"http://localhost:3000",
-	// 	"http://localhost:3001",
-	// 	"http://localhost:5173",
-	// }
-
-	// // Add MAIN_DNS if exists
-	// if mainDNS != "" {
-	// 	allowedOrigins = append(allowedOrigins, mainDNS)
-	// }
-
-	// app.Use(cors.New(cors.Config{
-	// 	AllowOrigins:     strings.Join(allowedOrigins, ","),
-	// 	AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
-	// 	AllowMethods:     "GET,POST,PUT,DELETE,OPTIONS",
-	// 	AllowCredentials: true,
-	// }))
-
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
@@ -43,6 +22,8 @@ func main() {
 
 	configs.ConnectDB()
 	configs.RunMigrations()
+
+	// configs.InitStorage()
 
 	routes.Setup(app, configs.DB)
 

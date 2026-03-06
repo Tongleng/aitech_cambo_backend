@@ -14,6 +14,7 @@ func RunMigrations() {
 		&models.ProductCategory{},
 		&models.SocialMedia{},
 		&models.Product{},
+		&models.Store{},
 	)
 
 	if err != nil {

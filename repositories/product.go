@@ -61,3 +61,7 @@ func (r *ProductRepository) GetByCategoryID(categoryID uint, page int, limit int
 
 	return products, total, err
 }
+
+func (r *ProductRepository) Update(id uint, updatedProduct *models.Product) error {
+	return r.DB.Model(&models.Product{}).Where("id = ?", id).Updates(updatedProduct).Error
+}

@@ -38,18 +38,18 @@ func (c *ProductCategoryController) GetProductCategory(ctx *fiber.Ctx) error {
 	return ctx.JSON(res)
 }
 
-func (c *SocialMediaController) Update(ctx *fiber.Ctx) error {
+func (c *ProductCategoryController) Update(ctx *fiber.Ctx) error {
 	id, err := ctx.ParamsInt("id")
 	if err != nil {
 		return ctx.Status(400).JSON(fiber.Map{"error": "Invalid ID format"})
 	}
 
-	var social models.SocialMedia
-	if err := ctx.BodyParser(&social); err != nil {
+	var product models.ProductCategory
+	if err := ctx.BodyParser(&product); err != nil {
 		return ctx.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	if err := c.Service.UpdateSocial(uint(id), &social); err != nil {
+	if err := c.Service.UpdateProductCategory(uint(id), &product); err != nil {
 		return ctx.Status(500).JSON(fiber.Map{"error": err.Error()})
 	}
 

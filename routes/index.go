@@ -31,4 +31,15 @@ func Setup(app *fiber.App, db *gorm.DB) {
 	productServ := services.ProductService{Repo: productRepo}
 	productCtrl := controllers.ProductController{Service: productServ}
 	ProductRoutes(api, &productCtrl)
+
+	storeRepo := repositories.StoreRepository{DB: db}
+	storeServ := services.StoreService{Repo: storeRepo}
+	storeCtrl := controllers.StoreController{Service: storeServ}
+	StoreRoutes(api, &storeCtrl)
+
+	storeCategoryRepo := repositories.StoreCategoryRepository{DB: db}
+	storeCategoryServ := services.StoreCategoryService{Repo: storeCategoryRepo}
+	storeCategoryCtrl := controllers.StoreCategoryController{Service: storeCategoryServ}
+	StoreCategoryRoutes(api, &storeCategoryCtrl)
+
 }

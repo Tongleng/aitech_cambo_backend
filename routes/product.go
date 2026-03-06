@@ -12,5 +12,6 @@ func ProductRoutes(router fiber.Router, ctrl *controllers.ProductController) {
 	productRoutes.Post("/", ctrl.Create)
 	productRoutes.Get("/", ctrl.GetAll)
 	productRoutes.Get("/:id", ctrl.GetByID)
+	productRoutes.Patch("/:id", ctrl.Update)
 	productRoutes.Get("/category/:categoryId", ctrl.GetByCategory)
 }

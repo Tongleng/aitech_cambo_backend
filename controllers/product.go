@@ -78,3 +78,25 @@ func (c *ProductController) GetByCategory(ctx *fiber.Ctx) error {
 		"last_page": math.Ceil(float64(total) / float64(limit)),
 	})
 }
+
+func (c *ProductController) Update(ctx *fiber.Ctx) error {
+	id, err := ctx.ParamsInt("id")
+	if err != nil {
+		return ctx.Status(400).JSON(fiber.Map{"error": "Invalid ID format"})
+	}
+
+	var product models.Product
+	if err := ctx.BodyParser(&product); err != nil {
+		return ctx.Status(400).JSON(fiber.Map{"error": "Cannot parse JSON body"})
+	}
+
+	updatedProduct, err := c.Service.UpdateProduct(uint(id), &product)
+	if err != nil {
+		return ctx.Status(500).JSON(fiber.Map{"error": "Failed to update product"})
+	}
+
+	return ctx.Status(200).JSON(fiber.Map{
+		"message": "Product updated successfully",
+		"data":    updatedProduct,
+	})
+}

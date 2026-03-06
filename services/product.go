@@ -39,3 +39,11 @@ func (s *ProductService) GetProductByID(id uint) (models.Product, error) {
 func (s *ProductService) GetProductsByCategory(categoryID uint, page int, limit int) ([]models.Product, int64, error) {
 	return s.Repo.GetByCategoryID(categoryID, page, limit)
 }
+
+func (s *ProductService) UpdateProduct(id uint, productData *models.Product) (models.Product, error) {
+	err := s.Repo.Update(id, productData)
+	if err != nil {
+		return models.Product{}, err
+	}
+	return s.Repo.GetByID(id)
+}
